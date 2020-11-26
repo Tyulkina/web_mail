@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ask.qa'
+    'qa'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ask.ask.urls'
+ROOT_URLCONF = 'ask.urls'
 
 TEMPLATES = [
     {
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Flow',
+        'USER': 'db_owner',
+        'PASSWORD': 'SayHi_k20',
+        'HOST': '',
+        
     }
 }
 

@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class QuestionManager(models.Manager):
-    def new(self): #метод, возвращающий последние добавленные вопросы
+    def new(self):
     	return super(QuestionManager, self).get_query_set().order_by('-added_at')
     
     
-    def popular(): #метод, возвращающий вопросы отсортированные по рейтингу
+    def popular():
     	return super(QuestionManager, self).get_query_set().order_by('-rating')    
  
 

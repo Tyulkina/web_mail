@@ -18,7 +18,6 @@ class Question(models.Model):
     author = models.ForeignKey(User, on_delete = models.PROTECT),
     likes = models.ManyToManyField(User,related_name='question_likes_user')
     author = models.ForeignKey(User, on_delete = models.PROTECT) 
-    likes = models.ManyToManyField(User)
     objects = QuestionManager()
     
 class Answer(models.Model):    

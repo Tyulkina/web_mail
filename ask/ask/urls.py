@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 #from django.urls import path, re_path
 from django.conf.urls import url
-from qa.views import test
+from ask.qa.views import test
 
 urlpatterns = [
     url(r'^$', test),

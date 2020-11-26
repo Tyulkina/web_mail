@@ -7,7 +7,6 @@ sudo /etc/init.d/mysql start
 mysql -uroot -e "create database Flow;"     
 mysql -uroot -e "CREATE USER 'db_owner'@'localhost' IDENTIFIED BY 'SayHi_k20';"
 mysql -uroot -e "GRANT ALL ON Flow.* TO 'db_owner'@'localhost';"
-git clone https://github.com/Tyulkina/web_mail.git /hone/box/web
 cd web/ask/
 python3 manage.py makemigrations qa
 python3 manage.py migrate

@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'qa',
+=======
+    'qa'
+>>>>>>> 46fbb3cf9eac571009ad6089e8d361423148c978
 ]
 
 MIDDLEWARE = [

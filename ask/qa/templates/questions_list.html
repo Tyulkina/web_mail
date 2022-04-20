@@ -1,0 +1,17 @@
+<html>
+    <head>Вопросы и ответы</head>
+    <body>
+        {% for question in questions %}
+            <p><a href="/question/{{ question.id }}">{{ question.title }}</a></p>
+        {% endfor %}
+        <ul class="pagination">
+            {% for p in paginator.page_range %}
+                {% if p == page.number %}
+                    <li class="active">{{ p }}</li>
+                {% else %}
+                    <li><a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a></li>
+                {% endif %}
+	    {% endfor %}
+         </ul>
+    </body>
+</html>

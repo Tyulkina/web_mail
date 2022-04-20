@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 #from django.urls import path, re_path
 from django.conf.urls import url
-from qa.views import test
+from ask.qa.views import test,new,popular,get_question
 
 urlpatterns = [
-    url(r'^$', test),
+    url(r'^$', new),
     url(r'^login/$',test),
     url(r'^signup/$',test),
-    url(r'^question/[\d]+/$',test),
+    url(r'^question/(?P<num>[\d]+)/$',get_question),
     url(r'^ask/$',test),
-    url(r'^popular/$',test),
-    url(r'^new/$',test)
+    url(r'^popular/$',popular),
+    url(r'^new/$',new)
 ]
+
+
+# url(r'^question/(\d+)/$',test)
+# url(r'^question/(?P<num>\d+)/$',test)

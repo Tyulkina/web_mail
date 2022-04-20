@@ -8,9 +8,9 @@ cd ask
 python3 manage.py makemigrations qa
 python3 manage.py migrate
 sudo rm -rf /etc/nginx/sites-enabled/default
-sudo ln -sf /home/box/etc/nginx.conf  /etc/nginx/sites-enabled/
+sudo ln -sf /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/
 sudo /etc/init.d/nginx restart
-sudo gunicorn -c /home/box/etc/gunicorn_django.conf ask.wsgi:application
+sudo gunicorn -c /home/box/web/etc/gunicorn_django.conf ask.wsgi:application
 
 
 

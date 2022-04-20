@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
-from ask.qa.models import Question, Answer
+from qa.models import Question, Answer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 

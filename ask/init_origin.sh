@@ -5,4 +5,3 @@ sudo gunicorn -c /home/ekaterina/box/web/etc/gunicorn_django.conf ask.wsgi:appli
 #sudo gunicorn -c /home/ekaterina/box/web/etc/gunicorn.conf hello:application 
 
 
-

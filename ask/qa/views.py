@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from qa.models import Question, Answer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from .forms import AskForm, AnswerForm
+from django.urls import reverse
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -15,8 +16,7 @@ def new(request):
     try:
         paginator = Paginator(questions, limit)
     except ValueError:
-         return HttpResponseNotFound("Указан некорректный limit")       
-    #возможно сюда придется добавить ограничение на значение limit=1000         
+         return HttpResponseNotFound("Указан некорректный limit")           
     paginator.baseurl = '/popular/?page='
     try:
     	page = paginator.page(page)
@@ -34,8 +34,7 @@ def popular(request):
     try:
         paginator = Paginator(questions, limit)
     except ValueError:
-         return HttpResponseNotFound("Указан некорректный limit")       
-    #возможно сюда придется добавить ограничение на значение limit=1000         
+         return HttpResponseNotFound("Указан некорректный limit")         
     paginator.baseurl = '/popular/?page='
     try:
     	page = paginator.page(page)
@@ -46,17 +45,40 @@ def popular(request):
     return render(request, 'questions_list.html',{'questions':page.object_list, 'paginator':paginator, 'page':page})
         
         
-def get_question(request,num):
-    try:
-        question = Question.objects.get(id=num)
-    except Question.DoesNotExist:
-        return HttpResponseNotFound("Такого вопроса не существует")
-    question.answers = Answer.objects.filter(question_id=num)    
-    return render(request, 'question.html',{'question':question})
-    
-    
-    
-    
+def get_question(request,num):    
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.cleaned_data['question']=Question.objects.get(id=num)
+            answer = form.save()
+            url=reverse(get_question,args=[num])
+            return HttpResponseRedirect(url)# URL = /question/123/
+
+    else:        
+        try:
+            question = Question.objects.get(id=num)
+        except Question.DoesNotExist:
+            return HttpResponseNotFound("Такого вопроса не существует")
+        question.answers = Answer.objects.filter(question_id=num)
+        form = AnswerForm(initial={'question':question.id})
+        return render(request, 'question.html',{'question':question, 'form': form})
+
+
+def add_question(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = AskForm(request.POST) # bind data to a form
+        if form.is_valid():
+            question = form.save()
+            url=reverse(get_question,args=[question.id])
+            return HttpResponseRedirect(url) # URL = /question/123/
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AskForm()
+
+    return render(request, 'AskForm.html', {'form': form}) 
     
     
     

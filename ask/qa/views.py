@@ -49,15 +49,15 @@ def get_question(request,num):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = AnswerForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             form.cleaned_data['question']=Question.objects.get(id=num)
             answer = form.save()
             url=reverse(get_question,args=[num])
             return HttpResponseRedirect(url)# URL = /question/123/
         else:
-            print(request.POST)
-            return HttpResponseNotFound("Что-то пошло не так")
-
+            print("/ninvalid data:", request.POST)
+            print(form.errors)
     else:        
         try:
             question = Question.objects.get(id=num)
@@ -65,7 +65,7 @@ def get_question(request,num):
             return HttpResponseNotFound("Такого вопроса не существует")
         question.answers = Answer.objects.filter(question_id=num)
         form = AnswerForm(initial={'question':question})
-        return render(request, 'question.html',{'question':question, 'form': form})
+    return render(request, 'question.html',{'question':question, 'form': form})
 
 
 def add_question(request):

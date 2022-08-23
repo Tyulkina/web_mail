@@ -17,7 +17,7 @@ def new(request):
         paginator = Paginator(questions, limit)
     except ValueError:
          return HttpResponseNotFound("Указан некорректный limit")           
-    paginator.baseurl = '/popular/?page='
+    paginator.baseurl = '/new/?page='
     try:
     	page = paginator.page(page)
     except PageNotAnInteger:
@@ -54,6 +54,9 @@ def get_question(request,num):
             answer = form.save()
             url=reverse(get_question,args=[num])
             return HttpResponseRedirect(url)# URL = /question/123/
+        else:
+            print(request.POST)
+            return HttpResponseNotFound("Что-то пошло не так")
 
     else:        
         try:
@@ -61,7 +64,7 @@ def get_question(request,num):
         except Question.DoesNotExist:
             return HttpResponseNotFound("Такого вопроса не существует")
         question.answers = Answer.objects.filter(question_id=num)
-        form = AnswerForm(initial={'question':question.id})
+        form = AnswerForm(initial={'question':question})
         return render(request, 'question.html',{'question':question, 'form': form})
 
 

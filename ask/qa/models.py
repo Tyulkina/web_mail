@@ -18,6 +18,9 @@ class Question(models.Model):
     likes = models.ManyToManyField(User,related_name='question_likes_user')
     objects = QuestionManager()
     
+    def __str__(self):
+        return self.title
+    
 class Answer(models.Model):    
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add = True)

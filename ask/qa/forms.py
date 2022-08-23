@@ -16,9 +16,9 @@ class AskForm(forms.Form):
     
 class AnswerForm(forms.Form):
     text = forms.CharField(label='Текст ответа', max_length=1000)
-    question_list=Question.objects.values_list('id','title')
-    question = forms.CharField(label='Выберите вопрос',widget=forms.Select(choices=question_list))
-    
+    #question_list=Question.objects.values_list('id','title')
+    #question = forms.CharField(label='Выберите вопрос',widget=forms.Select(choices=question_list))
+    question = forms.ModelChoiceField(label='Выберите вопрос', queryset=Question.objects.all(), widget=forms.Select())
     
     def save(self): # custom validation
         answer = Answer(**self.cleaned_data)

@@ -1,0 +1,6 @@
+<form action="/signup/" method="post">
+    {% csrf_token %}
+    {{ form }}<br>
+    {{ error }}<br><br>
+    <input type="submit" value="Зарегистрироваться">
+</form>

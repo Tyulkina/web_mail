@@ -1,5 +1,6 @@
 <form action="/ask/" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form }}<br>
+    {{ error }}<br><br>
     <input type="submit" value="Задать вопрос">
 </form>

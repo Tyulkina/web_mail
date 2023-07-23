@@ -28,4 +28,7 @@ class Answer(models.Model):
     author = models.ForeignKey(User, on_delete = models.PROTECT)
 
 
-
+class Session(models.Model):
+    key = models.CharField(unique=True, max_length=30)
+    user = models.ForeignKey(User, on_delete = models.PROTECT)
+    expires = models.DateTimeField()

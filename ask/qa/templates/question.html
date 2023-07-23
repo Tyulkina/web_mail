@@ -8,7 +8,8 @@
        
        <form action="" method="post">
 	    {% csrf_token %}
-	    {{ form }}
+	    {{ form }}<br>
+	    {{ error }}<br><br>
 	    <input type="submit" value="Ответить">
 	    {% if form.errors %}
 	        {% for field in form %}
@@ -18,8 +19,7 @@
 	                </div>
 	            {% endfor %}
 	        {% endfor %}
-	    {% endif %}
-	    	    
-	</form>
+	    {% endif %}    	    
+	</form>	
     </body>
 </html>

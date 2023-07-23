@@ -73,7 +73,7 @@ def get_question(request,num):
         return HttpResponseNotFound("Такого вопроса не существует")
     question.answers = Answer.objects.filter(question_id=num)
     form = AnswerForm(initial={'question':question})
-    return render(request, 'question.html',{'question':question, 'form': form, 'error': error}) 
+    return render(request, 'question.html', {'question':question, 'form': form, 'error': error}) 
 
 
 def add_question(request):
@@ -132,7 +132,7 @@ def login(request):
         sessionid = do_login(request.POST['username'],request.POST['password'])
         if sessionid:
             response = HttpResponseRedirect('/popular/')
-            response.set_cookie('sessionid', sessionid, httponly=True,expires = datetime.now()+timedelta(days=5))
+            response.set_cookie('sessionid', sessionid, httponly=True, expires = datetime.now()+timedelta(days=5))
             return response
         else:
             error = u'некорректный логин или пароль'    
@@ -160,7 +160,7 @@ def signup(request):
                 user = form.save()
                 sessionid = generate_session_key(user)
                 response = HttpResponseRedirect('/popular/')
-                response.set_cookie('sessionid', sessionid, httponly=True,expires = datetime.now()+timedelta(days=5))
+                response.set_cookie('sessionid', sessionid, httponly=True, expires = datetime.now()+timedelta(days=5))
                 return response
             else:
                 print("уже есть такой логин")
